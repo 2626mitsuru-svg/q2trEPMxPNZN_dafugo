@@ -81,14 +81,13 @@ export const useExpressionAutoSwitch = (
           ),
         };
 
-        // 次のトグルをすぐ予約
-        timersRef.current.set(playerId, {
-          playerId,
-          timerId: null,
-          lastExpression: next,
-          lastChangeTime: Date.now(),
-        });
-        setTimeout(() => scheduleNext(playerId), 0);
+ // 次のトグルは useEffect の監視で再スケジュール（即時呼び出しはしない）
+ timersRef.current.set(playerId, {
+   playerId,
+   timerId: null,
+   lastExpression: next,
+   lastChangeTime: Date.now(),
+ });
 
         return nextState;
       });
