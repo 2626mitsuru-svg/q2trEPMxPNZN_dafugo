@@ -161,6 +161,7 @@
 }
 
 
+
 /* 基本タイポグラフィ */
 @layer base {
   :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
