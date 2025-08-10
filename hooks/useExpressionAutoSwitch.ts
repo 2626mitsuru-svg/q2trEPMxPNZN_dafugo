@@ -11,8 +11,8 @@ interface ExpressionTimer {
 }
 
 // 保持時間（お好みで調整可）
-const THINKING_MS: [number, number] = [800, 1200];  // 短め
-const NEUTRAL_MS:  [number, number] = [600, 1200]; // 長め（thinking偏り防止）
+const THINKING_MS: [number, number] = [800, 1500];  // 短め
+const NEUTRAL_MS:  [number, number] = [800, 1500]; // 長め（thinking偏り防止）
 
 const rand = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
