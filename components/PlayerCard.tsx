@@ -113,9 +113,9 @@ export function PlayerCard({
           rank: 1,
           title: "🏆 優勝！大富豪",
           description: "見事な勝利！",
-          color: "#fbbf24", // amber-400
+          color: "#f893ffff", // amber-400
           bgColor: "#fbbf24",
-          borderColor: "#f59e0b",
+          borderColor: "#ff76d1ff",
         };
       case 1: // 2位（富豪）
         return {
@@ -163,33 +163,39 @@ export function PlayerCard({
   const finishStatus = getPlayerFinishStatus();
   const isFinished = finishOrder.includes(player.id); // 修正：finishOrderに含まれていれば上がり扱い
 
-  const getPlayerCardStyle = () => {
-    const baseClasses =
-      "h-full border-8 p-6 shadow-2xl relative transition-all duration-500 rounded-lg overflow-visible";
+const getPlayerCardStyle = () => {
+  const base =
+    "h-full relative overflow-visible transition-all duration-500 rounded-lg border-8 p-6 shadow-2xl";
 
-    if (isFinished && finishStatus) {
-      // 上がったプレイヤーの特別スタイル
-      if (finishStatus.type === "foul") {
-        // 反則負け: グレーアウト
-        return `${baseClasses} bg-gradient-to-br from-gray-200/80 to-gray-400/80 border-gray-400`;
-      } else if (finishStatus.type === "daifugo") {
-        // 大富豪: ピンク〜レインボーよりのゴールド
-        return `${baseClasses} bg-gradient-to-br from-pink-100/90 via-yellow-50/90 to-amber-100/90 border-pink-300`;
-      } else if (finishStatus.type === "fugo") {
-        // 富豪: ゴールド（旧大富豪色）
-        return `${baseClasses} bg-gradient-to-br from-yellow-100/90 via-amber-50/90 to-orange-100/90 border-yellow-400`;
-      } else {
-        // 3-4位: 通常よりも少し華やか
-        return `${baseClasses} bg-gradient-to-br from-white/95 via-gray-50/95 to-slate-100/95 border-gray-300`;
-      }
+  if (isFinished && finishStatus) {
+    // 上がった人（勝敗種別で少し色味を変える）
+    if (finishStatus.type === "foul") {
+      return `${base} bg-gradient-to-br from-gray-200/90 via-gray-300/85 to-gray-400/80 border-gray-400`;
     }
+    if (finishStatus.type === "daifugo") {
+      return `${base} bg-gradient-to-br from-pink-100 via-yellow-50 to-amber-100 border-pink-300`;
+    }
+    if (finishStatus.type === "fugo") {
+      return `${base} bg-gradient-to-br from-yellow-100 via-amber-50 to-orange-100 border-yellow-400`;
+    }
+    // 3-4位など
+    return `${base} bg-gradient-to-br from-white via-gray-50 to-slate-100 border-gray-300`;
+  }
 
-    if (isCurrentPlayer) {
-      return `${baseClasses} bg-gradient-to-br from-white/98 via-yellow-50/98 to-orange-50/98 border-white shadow-yellow-400/30`;
-    } else {
-      return `${baseClasses} ${player.isHuman ? "bg-gradient-to-br from-white/96 to-blue-50/96" : "bg-gradient-to-br from-gray-50/96 to-purple-50/96"} border-white/80`;
-    }
-  };
+  // まだプレイ中
+  if (isCurrentPlayer) {
+    // 自分のターンは分かりやすく強め
+    return `${base} bg-gradient-to-br from-white via-yellow-50 to-orange-100 border-white ring-2 ring-yellow-300/60 ring-offset-2 ring-offset-white`;
+  }
+
+  // それ以外（人間/CPUでわずかにトーンを変える）
+  return `${base} ${
+    player.isHuman
+      ? "bg-gradient-to-br from-white via-blue-50 to-blue-100"
+      : "bg-gradient-to-br from-white via-purple-50 to-purple-100"
+  } border-white/80`;
+};
+
 
   const getBorderColor = () => {
     if (isFinished && finishStatus) {
