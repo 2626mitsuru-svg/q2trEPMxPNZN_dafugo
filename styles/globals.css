@@ -1,0 +1,740 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 14px;
+  --background: #ffffff;
+  --foreground: oklch(0.145 0 0);
+  --card: #ffffff;
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #030213;
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.0058 264.53);
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  
+  /* フォントファミリー */
+  --font-family-base: 
+    "Meiryo", "メイリオ", "Yu Gothic Medium", "游ゴシック Medium", 
+    "Yu Gothic", "游ゴシック", "Hiragino Kaku Gothic ProN", 
+    "ヒラギノ角ゴ ProN W3", "Noto Sans CJK JP", "Noto Sans JP", 
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", 
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", 
+    "Segoe UI Emoji", "Noto Color Emoji";
+    
+  --font-family-mono: 
+    "Consolas", "Monaco", "Lucida Console", "Liberation Mono", 
+    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace;
+
+  /* アニメーション共通値 */
+  --animation-bounce-duration: 0.6s;
+  --animation-float-duration: 6s;
+  --animation-glow-duration: 2s;
+  --shadow-base: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-strong: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family-base);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+  }
+}
+
+/* 基本タイポグラフィ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1, h2, h3, h4 {
+      font-family: var(--font-family-base);
+      letter-spacing: 0.01em;
+      line-height: 1.5;
+    }
+
+    h1 { font-size: var(--text-2xl); font-weight: var(--font-weight-medium); }
+    h2 { font-size: var(--text-xl); font-weight: var(--font-weight-medium); }
+    h3 { font-size: var(--text-lg); font-weight: var(--font-weight-medium); }
+    h4 { font-size: var(--text-base); font-weight: var(--font-weight-medium); }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.6;
+      font-family: var(--font-family-base);
+      letter-spacing: 0.02em;
+    }
+
+    label, button, input {
+      font-size: var(--text-base);
+      font-family: var(--font-family-base);
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+    }
+
+    label, button { font-weight: var(--font-weight-medium); }
+    input { font-weight: var(--font-weight-normal); }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+  font-family: var(--font-family-base);
+}
+
+/* フォント調整 */
+.font-mono {
+  font-family: var(--font-family-mono) !important;
+  letter-spacing: 0 !important;
+}
+
+.text-xs, .text-sm { letter-spacing: 0.025em !important; }
+.text-lg, .text-xl, .text-2xl, .text-3xl { letter-spacing: 0.005em !important; }
+
+/* === 共通アニメーション === */
+
+/* バウンス系アニメーション */
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(-5deg); }
+  75% { transform: translateY(-1px) rotate(5deg); }
+}
+
+@keyframes bounce-action {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(-2deg); }
+}
+
+.animate-bounce-gentle { animation: bounce-gentle var(--animation-bounce-duration) ease-in-out infinite; }
+.animate-action-bounce { animation: bounce-action 1s ease-in-out infinite; }
+
+/* ポップ系アニメーション */
+@keyframes pop-in {
+  0% { transform: scale(0.8) translateY(10px); opacity: 0; }
+  50% { transform: scale(1.15) translateY(-5px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes pop-scale {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  50% { transform: scale(1.3) rotate(-10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.animate-speech-pop { animation: pop-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+.animate-reaction-pop { animation: pop-scale var(--animation-bounce-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+/* パルス系アニメーション */
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)); }
+  50% { transform: scale(1.2); filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)); }
+}
+
+@keyframes pulse-simple {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.animate-reaction-pulse { animation: pulse-simple 1.5s ease-in-out infinite; }
+.animate-sparkle { animation: pulse-simple 2s ease-in-out infinite; }
+
+/* フロート系アニメーション */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-float { animation: float var(--animation-float-duration) ease-in-out infinite; }
+
+/* ウィグル系アニメーション */
+@keyframes wiggle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.05) rotate(-1deg); }
+  75% { transform: scale(1.05) rotate(1deg); }
+}
+
+.animate-speech-wiggle { animation: wiggle var(--animation-bounce-duration) ease-in-out; }
+
+/* === グラデーション・フロー系アニメーション === */
+
+/* グラデーション流れるエフェクト */
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-flow {
+  background-size: 200% 200%;
+  animation: gradient-flow 3s ease-in-out infinite;
+}
+
+/* キャラクター選択専用アニメーション */
+@keyframes character-hover {
+  0% { transform: scale(1) rotateY(0deg); }
+  50% { transform: scale(1.05) rotateY(5deg); }
+  100% { transform: scale(1.02) rotateY(0deg); }
+}
+
+@keyframes character-select {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1.05); }
+}
+
+@keyframes selection-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); }
+}
+
+.animate-character-hover { animation: character-hover 0.6s ease-in-out; }
+.animate-character-select { animation: character-select 0.4s ease-out; }
+.animate-selection-glow { animation: selection-glow 2s ease-in-out infinite; }
+
+/* === カード専用アニメーション === */
+
+@keyframes card-lift {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-8px) scale(1.05); }
+}
+
+@keyframes card-stack-in {
+  0% { transform: translateX(50px) translateY(-20px) scale(0.95); }
+  100% { transform: translateX(0) translateY(0) scale(1); }
+}
+
+@keyframes card-fade-down {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(100px) scale(0.8); }
+}
+
+@keyframes hand-hide {
+  0% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0);
+  }
+  100% { 
+    opacity: 0; 
+    transform: scale(0.8) translateY(20px);
+  }
+}
+
+@keyframes rank-show {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.8) translateY(-20px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-card-stack-in { animation: card-stack-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-card-fade-down { animation: card-fade-down var(--animation-bounce-duration) cubic-bezier(0.5, 0, 0.75, 0); }
+.animate-hand-hide { animation: hand-hide 0.4s ease-out forwards; }
+.animate-rank-show { animation: rank-show 0.6s ease-out forwards; }
+
+/* === 遷移アニメーション === */
+
+@keyframes fade-in {
+  0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes slide-in {
+  0% { transform: translateY(-100px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  0% { transform: translateX(-100px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  0% { transform: translateX(100px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.animate-fade-in { animation: fade-in 0.8s ease-in-out forwards; }
+.animate-slide-in-top { animation: slide-in 1s ease-out forwards; }
+.animate-slide-in-left { animation: slide-in-left 0.8s ease-out forwards; }
+.animate-slide-in-right { animation: slide-in-right 0.8s ease-out forwards; }
+
+/* === UI要素スタイル === */
+
+/* カード関連 */
+.hand-display-area {
+  height: 60px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+}
+
+.card-stacked {
+  transition: all 0.2s ease-in-out;
+}
+
+.card-stacked:hover {
+  z-index: 100 !important;
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: var(--shadow-strong);
+}
+
+.stacked-cards-container {
+  position: relative;
+  height: 60px;
+  overflow: visible;
+  display: flex;
+}
+
+/* 手札数表示 */
+.card-count-container {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.125rem;
+  line-height: 1;
+}
+
+.card-count-label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #6b7280;
+  font-family: var(--font-family-base);
+  letter-spacing: 0.01em;
+}
+
+.card-count-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #dc2626;
+  font-family: var(--font-family-mono);
+  letter-spacing: 0;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+  min-width: 20px;
+  text-align: center;
+}
+
+.card-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  border: 2px solid white;
+  box-shadow: var(--shadow-base);
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+  min-width: 24px;
+  font-family: var(--font-family-mono);
+}
+
+/* === 順位表示システム === */
+
+/* 巨大順位文字 */
+.giant-rank-text {
+  font-family: "Impact", "Arial Black", "Meiryo", sans-serif;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+/* 縁取りスタイル */
+.text-stroke-rainbow { -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9); filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3)); }
+.text-stroke-gold { -webkit-text-stroke: 2px #b45309; filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3)); }
+.text-stroke-blue { -webkit-text-stroke: 2px #0c4a6e; filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3)); }
+.text-stroke-gray { -webkit-text-stroke: 2px rgba(0, 0, 0, 0.8); filter: drop-shadow(1px 1px 2px rgba(255, 255, 255, 0.3)); }
+.text-stroke-fire { -webkit-text-stroke: 2px #7f1d1d; filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.4)); }
+
+/* グラデーションテキスト（流れるアニメーション統合） */
+/* 各色のグラデーション */
+.text-rainbow {
+  background-image: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 3s ease-in-out infinite;
+}
+
+.text-gold-gradient {
+  background-image: linear-gradient(45deg, #ffd700, #ffed4e, #fbbf24, #f59e0b, #d97706, #ffd700);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 2.5s ease-in-out infinite;
+}
+
+.text-blue-gradient {
+  background-image: linear-gradient(45deg, #a8dadc, #87ceeb, #67a3c1, #5b91a8, #457b9d, #a8dadc);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 2.5s ease-in-out infinite;
+}
+
+.text-gray-gradient {
+  background-image: linear-gradient(45deg, #d1d5db, #9ca3af, #6b7280, #4b5563, #374151, #d1d5db);
+  background-size: 150% 150%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 2s ease-in-out infinite;
+}
+
+.text-fire-gradient {
+  background-image: linear-gradient(45deg, #8b0000, #b91c1c, #dc143c, #ff4500, #ff6347, #8b0000);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 2.5s ease-in-out infinite;
+}
+
+/* 発光エフェクト */
+.text-glow-rainbow { text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); }
+.text-glow-gold { text-shadow: 0 0 6px rgba(251, 191, 36, 0.6); }
+.text-glow-blue { text-shadow: 0 0 4px rgba(103, 163, 193, 0.5); }
+.text-glow-fire { text-shadow: 0 0 6px rgba(220, 20, 60, 0.6); }
+
+/* === 表情・絵文字システム === */
+
+/* 表情アニメーション */
+@keyframes expression-glow {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)); }
+  50% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)); }
+}
+
+.expression-main {
+  transition: all 0.3s ease-in-out;
+}
+
+.expression-current {
+  animation: expression-glow var(--animation-glow-duration) ease-in-out infinite;
+}
+
+.mini-avatar {
+  transition: all 0.2s ease-in-out;
+}
+
+.mini-avatar:hover {
+  transform: scale(1.2);
+}
+
+/* 反応絵文字コンテナ */
+.reaction-emoji-container {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 60;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  width: 43px; 
+  height: 43px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px; 
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-base);
+}
+
+/* === モーダル・オーバーレイ === */
+
+/* モーダルオーバーレイ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* モーダルコンテンツ */
+.modal-content {
+  background: var(--color-slate-900);
+  border: 8px solid white;
+  box-shadow: var(--shadow-strong);
+  max-width: 56rem;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* モーダルアニメーション */
+@keyframes modal-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-animate-in {
+  animation: modal-fade-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* スクロールバーのカスタマイズ */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #64748b #1e293b;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #64748b;
+  border-radius: 4px;
+  border: 1px solid #1e293b;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* === カスタムコントロール === */
+
+/* スライダー */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: #fbbf24;
+  border: 3px solid #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.7);
+}
+
+.slider::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: #fbbf24;
+  border: 3px solid #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.7);
+}
+
+/* === キャラクター選択専用スタイル === */
+
+/* キャラクターカード */
+.character-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  will-change: transform, box-shadow;
+}
+
+.character-card:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.character-card.selected {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* プレイヤースロット */
+.player-slot {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.player-slot:hover {
+  transform: translateY(-2px);
+}
+
+.player-slot.human {
+  animation: selection-glow 3s ease-in-out infinite;
+}
+
+/* バックグラウンドエフェクト */
+@keyframes background-shift {
+  0%, 100% { 
+    transform: translateX(0) translateY(0) scale(1); 
+    opacity: 0.4;
+  }
+  33% { 
+    transform: translateX(10px) translateY(-10px) scale(1.1); 
+    opacity: 0.6;
+  }
+  66% { 
+    transform: translateX(-5px) translateY(5px) scale(0.9); 
+    opacity: 0.5;
+  }
+}
+
+/* ランダム選択ボタン用アニメーション */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 4s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 3s linear infinite;
+}
+
+.background-orb {
+  animation: background-shift 8s ease-in-out infinite;
+  filter: blur(40px);
+}
+
+.background-orb:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.background-orb:nth-child(3) {
+  animation-delay: 4s;
+}
+
+/* ボタンホバーエフェクト */
+@keyframes button-glow {
+  0%, 100% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
+  50% { box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6), 0 4px 15px rgba(255, 165, 0, 0.4); }
+}
+
+.button-glow-effect {
+  animation: button-glow 2s ease-in-out infinite;
+}

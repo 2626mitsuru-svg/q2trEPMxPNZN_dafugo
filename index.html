@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+
+    <!-- MD5ライブラリ -->
+    <script src="https://unpkg.com/js-md5@0.8.3/src/md5.min.js"></script>
+
+    <!-- 簡易パスワードゲート（テスト用途） -->
+    <script>
+      // 平文: summermer_daifugo
+      // MD5: 8dd2adebc69103b5614d02ee2909afb5
+      const PASS_HASH = "8dd2adebc69103b5614d02ee2909afb5";
+      const PROMPT_MSG = "Password?";
+
+      try {
+        if (sessionStorage.getItem("gate_ok") !== "1") {
+          const input = prompt(PROMPT_MSG);
+          if (!input || window.md5(input) !== PASS_HASH) {
+            document.write("Unauthorized");
+            throw new Error("blocked");
+          }
+          sessionStorage.setItem("gate_ok", "1");
+        }
+      } catch (e) {
+        throw e; // 以降の実行を停止
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>
