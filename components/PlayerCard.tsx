@@ -619,8 +619,9 @@ export function PlayerCard({
       })()}
       {(player.message || introDialogue) && (
         <div
-          className="absolute z-55"
-          style={{
+            className="absolute z-[200] pointer-events-none" // ← z-55 をやめて z-[200]
+           style={{
+    zIndex: 200,
             // 表情エリアと重ならない位置に配置
             ...(position === "top-left" && {
               top: "140px",
