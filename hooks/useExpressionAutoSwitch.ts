@@ -11,7 +11,7 @@ interface ExpressionTimer {
 }
 
 // 保持時間（ほぼ2秒にしたいなら [1800,2200] などに）
-const THINKING_MS: [number, number] = [600, 2000];
+const THINKING_MS: [number, number] = [1000, 2000];
 const NEUTRAL_MS:  [number, number] = [600, 1200];
 
 // 初回キック（neutralのまま長く見える対策）
