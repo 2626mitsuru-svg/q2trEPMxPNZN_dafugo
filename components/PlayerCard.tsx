@@ -545,7 +545,6 @@ export function PlayerCard({
           }),
         }}
       >
-        <div className="avatar-ring inline-block" style={{ ['--char' as any]: (isFinished && finishStatus ? finishStatus.color : player.character.color) }}>
         <div
           className="rounded-full flex items-center justify-center border-6 shadow-2xl relative bg-white expression-main w-full h-full overflow-hidden"
           style={{
@@ -595,7 +594,6 @@ export function PlayerCard({
               scale={1.7}
             />
           </div>
-        </div>
         </div>
 
         {/* 反応絵文字オーバーレイ（表情枠の外側に配置） */}
@@ -788,7 +786,7 @@ export function PlayerCard({
       {/* 現在のプレイヤー表示（完全独立・上がったプレイヤーには表示しない） */}
       {isCurrentPlayer && !isFinished && (
         <div
-          className="absolute w-12 h-12 rounded-full border-4 animate-bounce flex items-center justify-center text-xl font-bold shadow-2xl z-300"
+          className="absolute w-12 h-12 rounded-full border-4 animate-bounce flex items-center justify-center text-xl font-bold shadow-2xl z-500"
           style={{
             backgroundColor: player.character.color,
             borderColor: "white",
