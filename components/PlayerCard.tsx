@@ -797,7 +797,7 @@ export function PlayerCard({
       {/* 現在のプレイヤー表示（完全独立・上がったプレイヤーには表示しない） */}
       {isCurrentPlayer && !isFinished && (
         <div
-          className="absolute w-12 h-12 rounded-full border-4 animate-bounce flex items-center justify-center text-xl font-bold shadow-2xl z-500"
+          className="absolute -top-2 -right-2 z-[999] w-12 h-12 rounded-full border-4 animate-bounce flex items-center justify-center text-xl font-bold shadow-2xl"
           style={{
             backgroundColor: player.character.color,
             borderColor: "white",
