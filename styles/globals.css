@@ -146,9 +146,10 @@
 
 @layer base {
   * {
-    @apply border-border;
-    /* ring色の50%薄め */
-    outline-color: color-mix(in oklch, var(--ring), transparent 50%);
+    @apply border-border;            /* Tailwind側はこれだけ */
+    outline-color: var(--ring);      /* 必要ならアウトライン色を変数で指定 */
+    /* 50%の薄さにしたい場合は下を使う（上の行は消してOK） */
+    /* outline-color: color-mix(in oklch, var(--ring), transparent 50%); */
   }
 
   body {
