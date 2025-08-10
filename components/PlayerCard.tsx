@@ -573,6 +573,16 @@ export function PlayerCard({
                 : "none",
           }}
         >
+
+{/* 画像の上に重ねる枠（サイズは親に完全フィット） */}
+<div
+  className="pointer-events-none absolute inset-0 rounded-full"
+  style={{
+    // キャラカラー or リザルトカラー
+    boxShadow: `0 0 0 3px ${finishStatus?.color ?? player.character.color}`,
+  }}
+/>
+
           {/* 背景グラデーション */}
           <div
             className="absolute inset-2 rounded-full"
