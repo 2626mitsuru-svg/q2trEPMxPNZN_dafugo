@@ -1,8 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @custom-variant dark (&:is(.dark *));  // Parcel未対応なので無効化 */
-
+/* @custom-variant dark (&:is(.dark *)); */
 
 :root {
   --font-size: 14px;
@@ -102,7 +101,6 @@
   --sidebar-ring: oklch(0.439 0 0);
 }
 
-- @theme inline {
 + :root {
     /* ここにある --background などのCSS変数はそのまま残す */
 
