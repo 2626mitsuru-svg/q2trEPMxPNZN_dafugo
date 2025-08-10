@@ -14,6 +14,9 @@ interface ExpressionTimer {
 const THINKING_MS: [number, number] = [600, 1200];
 const NEUTRAL_MS:  [number, number] = [600, 1200];
 
+// 初回キック（neutralのまま長く見える対策）
+const FIRST_TICK_MS: [number, number] = [300, 600];
+
 const rand = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
