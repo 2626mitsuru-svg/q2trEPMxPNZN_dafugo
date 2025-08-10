@@ -546,7 +546,7 @@ export function PlayerCard({
         }}
       >
         <div
-          className="rounded-full flex items-center justify-center border-6 shadow-2xl relative bg-white expression-main w-full h-full overflow-hidden"
+          className="rounded-full flex items-center justify-center border-[6px] shadow-2xl relative bg-white expression-main w-full h-full overflow-hidden"
           style={{
             borderColor:
               isFinished && finishStatus
@@ -576,12 +576,13 @@ export function PlayerCard({
 
 {/* 画像の上に重ねる枠（サイズは親に完全フィット） */}
 <div
-  className="pointer-events-none absolute inset-0 rounded-full"
+  className="pointer-events-none absolute inset-0 rounded-full z-10"
   style={{
     // キャラカラー or リザルトカラー
-    boxShadow: `0 0 0 3px ${finishStatus?.color ?? player.character.color}`,
+    boxShadow: `inset 0 0 0 3px ${finishStatus?.color ?? player.character.color}`,
   }}
 />
+
 
           {/* 背景グラデーション */}
           <div
