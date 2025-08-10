@@ -1,5 +1,7 @@
-- @custom-variant dark (&:is(.dark *));
-+ /* @custom-variant dark (&:is(.dark *));  // Parcel未対応なので無効化 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @custom-variant dark (&:is(.dark *));  // Parcel未対応なので無効化 */
 
 
 :root {
@@ -142,7 +144,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-}
 }
 
 @layer base {
