@@ -10,15 +10,22 @@ interface ExpressionTimer {
   lastChangeTime: number;
 }
 
-// 保持時間（お好みで調整可）
-const THINKING_MS: [number, number] = [800, 1500];  // 短め
-const NEUTRAL_MS:  [number, number] = [800, 1500]; // 長め（thinking偏り防止）
+// 保持時間（ほぼ2秒にしたいなら [1800,2200] などに）
+const THINKING_MS: [number, number] = [800, 1500];
+const NEUTRAL_MS:  [number, number] = [800, 1500];
 
 const rand = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
 const isAutoTarget = (p: Player) =>
   !p.isHuman && p.hand.length > 0 && !p.isFoulFinished;
+
+// "normal"/undefined を neutral 扱いに、その他（talking等）は自動オフ
+const normalizeExp = (exp: any): Expression | 'other' => {
+  if (exp === 'thinking') return 'thinking';
+  if (exp === 'neutral' || exp === 'normal' || exp == null || exp === '') return 'neutral';
+  return 'other';
+};
 
 export const useExpressionAutoSwitch = (
   gameState: GameState | null,
@@ -45,17 +52,13 @@ export const useExpressionAutoSwitch = (
       return;
     }
 
-    const cur = (player.expression as Expression) ?? 'neutral';
-    if (cur !== 'neutral' && cur !== 'thinking') {
-      // 別表情（talking/happy等）の間は自動切替しない
-      clearTimer(playerId);
-      return;
-    }
+    const curNorm = normalizeExp(player.expression);
+    if (curNorm === 'other') { clearTimer(playerId); return; }
 
     const hold =
-      cur === 'thinking'
-        ? getAdjustedTime(rand(NEUTRAL_MS[0], NEUTRAL_MS[1])) // thinkingの後はneutralを長め
-        : getAdjustedTime(rand(THINKING_MS[0], THINKING_MS[1])); // neutralの後はthinkingを短め
+      curNorm === 'thinking'
+        ? getAdjustedTime(rand(NEUTRAL_MS[0], NEUTRAL_MS[1])) // thinking の後は neutral を保持
+        : getAdjustedTime(rand(THINKING_MS[0], THINKING_MS[1])); // neutral の後は thinking を保持
 
     const timerId = setTimeout(() => {
       // 実行時点の最新stateで安全に更新
@@ -67,14 +70,10 @@ export const useExpressionAutoSwitch = (
         const pl = prev.players[idx];
         if (!isAutoTarget(pl)) return prev;
 
-        const curExp = (pl.expression as Expression) ?? 'neutral';
-        if (curExp !== 'neutral' && curExp !== 'thinking') {
-          // 外部で別表情に変えられた → 自動停止
-          clearTimer(playerId);
-          return prev;
-        }
+        const curExpNorm = normalizeExp(pl.expression);
+        if (curExpNorm === 'other') { clearTimer(playerId); return prev; }
 
-        const next: Expression = curExp === 'thinking' ? 'neutral' : 'thinking';
+        const next: Expression = curExpNorm === 'thinking' ? 'neutral' : 'thinking';
         const nextState: GameState = {
           ...prev,
           players: prev.players.map((p, i) =>
@@ -82,16 +81,15 @@ export const useExpressionAutoSwitch = (
           ),
         };
 
-        // 連続スケジュール（次のトグル予約）
+        // 次のトグルをすぐ予約
         timersRef.current.set(playerId, {
           playerId,
-          timerId: null, // いったんnull、下で上書き
+          timerId: null,
           lastExpression: next,
           lastChangeTime: Date.now(),
         });
-
-        // 次の予約を即セット
         setTimeout(() => scheduleNext(playerId), 0);
+
         return nextState;
       });
     }, hold);
@@ -99,38 +97,36 @@ export const useExpressionAutoSwitch = (
     timersRef.current.set(playerId, {
       playerId,
       timerId,
-      lastExpression: cur,
+      lastExpression: curNorm, // 正規化後を記録
       lastChangeTime: Date.now(),
     });
   }, [gameState, getAdjustedTime, setGameState]);
 
-  // ゲーム進行に応じて監視＆（再）スケジュール
+  // 監視＆（再）スケジュール
   useEffect(() => {
     if (!gameState || gameState.gamePhase !== 'playing' || isPaused) {
-      // 一時停止 or 非プレイ時は全停止
       timersRef.current.forEach((t) => t.timerId && clearTimeout(t.timerId));
       timersRef.current.clear();
       return;
     }
 
     gameState.players.forEach((p) => {
-      const cur = (p.expression as Expression) ?? 'neutral';
+      const curNorm = normalizeExp(p.expression);
       const existing = timersRef.current.get(p.id);
 
-      // 条件に合わない・別表情なら停止
-      if (!isAutoTarget(p) || (cur !== 'neutral' && cur !== 'thinking')) {
+      if (!isAutoTarget(p) || curNorm === 'other') {
         clearTimer(p.id);
         return;
       }
 
-      // まだタイマーがない／表情が変わったら再スケジュール
-      if (!existing || existing.lastExpression !== cur || !existing.timerId) {
+      // 表情が変わった／タイマー無しなら張り直し
+      if (!existing || existing.lastExpression !== curNorm || !existing.timerId) {
         clearTimer(p.id);
         scheduleNext(p.id);
       }
     });
 
-    // いないIDのタイマーは掃除
+    // いないIDの掃除
     Array.from(timersRef.current.keys()).forEach((id) => {
       if (!gameState.players.some((p) => p.id === id)) clearTimer(id);
     });
@@ -144,7 +140,7 @@ export const useExpressionAutoSwitch = (
     };
   }, []);
 
-  // デバッグフックはそのまま残す
+  // デバッグ
   const getTimerStatus = useCallback(() => {
     const timers = Array.from(timersRef.current.values());
     console.log(
