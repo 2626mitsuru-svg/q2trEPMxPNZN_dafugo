@@ -9,17 +9,20 @@
     <script src="https://unpkg.com/js-md5@0.8.3/src/md5.min.js"></script>
 
     <!-- 簡易パスワードゲート（テスト用途） -->
-     <!-- 簡易パスワードゲート（テスト用途） -->
 <script>
   (function () {
-    // 平文: summermer_daifugo
-    // MD5: 8dd2adebc69103b5614d02ee2909afb5
+    // 平文とMD5（どちらでも正解にする）
+    const PASS_PLAIN = "summermer_daifugo";
     const PASS_HASH = "8dd2adebc69103b5614d02ee2909afb5";
-    const KEY = "gate_ok_" + PASS_HASH.slice(0, 6); // バージョン付きキー
+
+    const KEY = "gate_ok_" + PASS_HASH.slice(0, 6);
     const MSG = "Password?";
 
+    function allow() {
+      sessionStorage.setItem(KEY, "1");
+      document.documentElement.style.visibility = "visible";
+    }
     function deny() {
-      // ここでドキュメントを入れ替え → 以降のパースを打ち切り
       document.open();
       document.write(`<!doctype html><html lang="ja"><head>
         <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -44,23 +47,28 @@
 
     try {
       if (sessionStorage.getItem(KEY) === "1") {
-        // 既に通過済み
         document.documentElement.style.visibility = "visible";
         return;
       }
-      const input = prompt(MSG);
-      if (!input) return deny();
-      if (window.md5(input) === PASS_HASH) {
-        sessionStorage.setItem(KEY, "1");
-        document.documentElement.style.visibility = "visible";
+      const inputRaw = prompt(MSG);
+      if (inputRaw == null) return deny();       // CancelもNG扱い
+      const input = String(inputRaw).trim();     // 前後空白カット
+
+      // md5があればMD5で判定／無ければ平文で判定（どちらかが一致したら通す）
+      const okByHash = (typeof window.md5 === "function") && window.md5(input) === PASS_HASH;
+      const okByPlain = input === PASS_PLAIN;
+
+      if (okByHash || okByPlain) {
+        allow();
       } else {
         deny();
       }
-    } catch {
+    } catch (e) {
       deny();
     }
   })();
 </script>
+
 
   </head>
   <body>
