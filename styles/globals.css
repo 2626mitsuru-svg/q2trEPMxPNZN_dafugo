@@ -748,3 +748,28 @@ html {
 .button-glow-effect {
   animation: button-glow 2s ease-in-out infinite;
 }
+
+/* --- player area background --- */
+.player-area-bg{
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--card) 100%, transparent 0%) 0%,
+    color-mix(in oklch, var(--card) 85%, var(--foreground) 15%) 100%
+  );
+  transition: background 200ms ease;
+}
+.player-area-active{
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--primary) 25%, var(--card) 75%) 0%,
+    color-mix(in oklch, var(--primary) 15%, var(--card) 85%) 100%
+  );
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--primary), transparent 70%);
+}
+
+/* --- avatar ring by character color --- */
+.avatar-ring{
+  border-radius: 9999px;
+  box-shadow: 0 0 0 3px var(--char, var(--ring));
+}
+
